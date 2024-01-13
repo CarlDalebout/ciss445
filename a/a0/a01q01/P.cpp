@@ -56,7 +56,7 @@ void P::eval_token(std::string tokens)
     // }
 }
 
-void P::eval_input(Token toklens)
+void P::eval_input(std::vector<std::string> toklens)
 {
 
 }

@@ -3,9 +3,10 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include <stdexcept>
 #include <map>
-#include "Token.h"
+// #include "Token.h"
 
 
 class P
@@ -21,7 +22,7 @@ public:
     Functions
 ==========================================================================================*/
     void  eval_token(std::string token);
-    void  eval_input(Token tokens);
+    void  eval_input(std::vector<std::string> tokens);
 
 private:
 /*==========================================================================================
