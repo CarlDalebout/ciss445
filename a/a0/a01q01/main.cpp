@@ -117,6 +117,10 @@ char isOperator(char ch)
             return '/'; break;
         case (int) '%':
             return '%'; break;
+        case (int) '(':
+            return '('; break;
+        case (int) ')':
+            return ')'; break;
         default:
             return 'n'; break;
     }
@@ -349,7 +353,7 @@ std::string get_lefthand(std::vector<Element> tokens, int end)
         val = "ERROR BAD NAME";
         return val;
     }
-    else if(end == 1 && tokens[0].type != 6)
+    else if(end == 1 && tokens[0].type != 6 || isdigit(tokens[0].tok[0]) )
     {
         std::cout << "ERROR: \"" << tokens[0].tok << "\" is not a variable name\n";
         return "ERROR BAD NAME";
@@ -393,6 +397,11 @@ int P::get_righthand(std::vector<Element> tokens, int start)
                 case (int)'+':
                     {
                         // std::cout << "in 'x' case\n";
+                        if(i+1 == tokens.size())
+                        {
+                            std::cout << "ERROR: right operand for \"+\" is missing\n";
+                            return -2147483647;
+                        }
                         while(!operator_stack.empty() && (operator_stack.back() == "*" || operator_stack.back() == "/"))
                         {
                             // std::cout << "pusing to Postfix_string\n";
@@ -404,6 +413,11 @@ int P::get_righthand(std::vector<Element> tokens, int start)
                     break;
                 case (int)'-':
                     {
+                        if(i+1 == tokens.size())
+                        {
+                            std::cout << "ERROR: right operand for \"-\" is missing\n";
+                            return -2147483647;
+                        }
                         while(!operator_stack.empty() && (operator_stack.back() == "*" || operator_stack.back() == "/"))
                         {
                             Postfix_string.push_back(operator_stack.back());
@@ -414,16 +428,31 @@ int P::get_righthand(std::vector<Element> tokens, int start)
                     break;
                 case (int)'*':
                     {
+                        if(i+1 == tokens.size())
+                        {
+                            std::cout << "ERROR: right operand for \"*\" is missing\n";
+                            return -2147483647;
+                        }
                         operator_stack.push_back("*");
                     }
                     break;
                 case (int)'/':
                     {
+                        if(i+1 == tokens.size())
+                        {
+                            std::cout << "ERROR: right operand for \"/\" is missing\n";
+                            return -2147483647;
+                        }
                         operator_stack.push_back("/");
                     }
                     break;
                 case (int)'(':
                     {
+                        if(i+1 == tokens.size())
+                        {
+                            std::cout << "ERROR: missing right bracket INCORRECT MATHMATICAL FORMATE \n";
+                            return -2147483647;
+                        }
                         operator_stack.push_back("(");
                     }
                     break;
@@ -433,7 +462,7 @@ int P::get_righthand(std::vector<Element> tokens, int start)
                         {
                             if(operator_stack.empty())
                             {
-                                std::cout << "ERROR: missing left bracket invalid right side INCORRECT MATHMATICAL FORMAT\n";
+                                std::cout << "ERROR: missing left bracket invalid left side INCORRECT MATHMATICAL FORMAT\n";
                                 return -2147483647;
                             }
                             Postfix_string.push_back(operator_stack.back());
@@ -479,12 +508,12 @@ int P::get_righthand(std::vector<Element> tokens, int start)
         operator_stack.pop_back();
     }
 
-    std::string dir = "";
-    for(int i = 0; i < Postfix_string.size(); ++i)
-    {
-        std::cout << dir << Postfix_string[i]; dir = " ";
-    }
-    std::cout << '\n';
+    // std::string dir = "";
+    // for(int i = 0; i < Postfix_string.size(); ++i)
+    // {
+    //     std::cout << dir << Postfix_string[i]; dir = " ";
+    // }
+    // std::cout << '\n';
 
     std::vector<int> Reverse_Polish_Stack;
     for(int i = 0; i < Postfix_string.size(); ++i)
@@ -549,23 +578,24 @@ int P::get_righthand(std::vector<Element> tokens, int start)
                 Reverse_Polish_Stack.push_back(std::stoi(Postfix_string[i]));
                 break;
         }
-        std::cout << Postfix_string[i] << "\t Reverse_Polish_Stack: ";
-        std::string dir = "";
-        for(int j = 0; j < Reverse_Polish_Stack.size(); ++j)
-        {
-            std::cout << dir << Reverse_Polish_Stack[j]; dir = " ";
-        }
-        std::cout << '\n';
+
+        // std::cout << Postfix_string[i] << "\t Reverse_Polish_Stack: ";
+        // std::string dir = "";
+        // for(int j = 0; j < Reverse_Polish_Stack.size(); ++j)
+        // {
+        //     std::cout << dir << Reverse_Polish_Stack[j]; dir = " ";
+        // }
+        // std::cout << '\n';
     }
 
-    //printing Reverse_Polish_Stack
-    dir = "";
-    for(int i = 0; i < Reverse_Polish_Stack.size(); ++i)
-    {
-        std::cout << dir << Reverse_Polish_Stack[i]; dir = " ";
-    }
-    std::cout << '\n';
-    //
+    // //printing Reverse_Polish_Stack
+    // dir = "";
+    // for(int i = 0; i < Reverse_Polish_Stack.size(); ++i)
+    // {
+    //     std::cout << dir << Reverse_Polish_Stack[i]; dir = " ";
+    // }
+    // std::cout << '\n';
+    // //
 
     if(!Reverse_Polish_Stack.empty())
     {
@@ -607,12 +637,12 @@ void P::eval_token_list(std::vector<Element> tokens)
                         it_symtable = symtable_.find(variable_name);
                         if(it_symtable != symtable_.end())
                         {
-                            std::cout << "writing over existing value\n";
+                            // std::cout << "writing over existing value\n";
                             it_symtable->second = value;
                         }
                         else
                         {
-                            std::cout << "pushing new value into the symtable\n";
+                            // std::cout << "pushing new value into the symtable\n";
                             symtable_.insert({tokens[i-1].tok, value});
                         }
                         return;
@@ -639,8 +669,13 @@ void P::eval_token_list(std::vector<Element> tokens)
                         std::cout << "false\n";
                     break;
                 case 1:
-                    std::cout << tokens[i].tok << '\n';
-                    break;
+                    {
+                        int value = get_righthand(tokens, 0);
+                        if(value == -2147483648 || value == -2147483647 || value == 2147483647)
+                            return;
+                        std::cout << value << '\n';
+                        return;
+                    }   break;
                 case 2:
                     std::cout << "ERROR: I dont know how to understand Octals yet\n";
                     break;
@@ -671,7 +706,6 @@ void P::eval_token_list(std::vector<Element> tokens)
                     }
                     break;
                 case 7:
-                    
                     break;
                 default:
                     break;
