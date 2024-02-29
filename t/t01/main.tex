@@ -1,0 +1,384 @@
+\input{thispreamble.tex}
+
+\renewcommand\AUTHOR{} % CHANGE TO YOURS
+
+\begin{document}
+\topmattertwo
+
+\begin{enumerate}
+
+\li This is a closed-book, no-calculator, no-computer, no-discussion test.
+
+\li Your solution must be written in the box provided. Anything outside the box
+is not considered part of the solution.
+Everything inside the box IS considered part of the solution.
+
+\li Do NOT provide multiple solutions. If you do, I get to pick ONE to grade.
+(I'm very good at picking solution -- the wrong one).
+
+\li Write neatly. If I cannot read your solution easily you will get zero.
+
+\li
+For the OCAML coding problems,
+your grade will be based on passing a lists of tests cases.
+If your code passes all the test cases,
+you get all the points for that question;
+if it does not pass any test cases you will get 0.
+Not all test cases are shown below.
+For some questions, test cases are not shown.
+
+\li 
+Cheating is a serious academic offense. If caught you will receive an
+immediate score
+of -100\%.
+
+\end{enumerate}
+
+\newpage
+\begin{python}
+from latextool_basic import *
+test_score_table()
+\end{python}
+
+
+
+\newpage
+\nextq
+The following are the phases in source code compilation:
+
+\begin{center}
+\includegraphics[width=2.5in]{pic.JPG}
+\end{center}
+
+(a) What is the input for the scanner phase?
+\\
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+(b) What is the output during the scanner phase?
+\\
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+(c) What is the input for the parser phase?
+\\
+\ANSWER
+\begin{answercode}
+  
+\end{answercode}
+
+(d) What is the output during the parser phase?
+\\
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+%===============================================================================
+\newpage
+\nextq
+Write a function \verb!quadratic! such that
+\verb!(quadratic a b c)! returns a function that computes the $y$-value
+of the quadratic equation $y = ax^2 + bx + c$.
+For instance 
+
+\begin{console}[frame=none]
+        Test                       Expected value
+        (quadratic 0 1 2) 5        0 * 5 * 5 + 1 * 5 + 2
+        (quadratic 1 2 3) 3        1 * 3 * 3 + 2 * 3 + 3
+        (quadratic 2 3 4) 7        2 * 7 * 7 + 3 * 7 + 4
+\end{console}
+
+\ANSWER
+\begin{answercode}
+  
+\end{answercode}
+
+%===============================================================================
+\newpage
+\nextq
+Write a \verb!second! function such that \verb!second xs!
+returns a list that contains exactly the second value of
+the list \verb!xs!.
+If \verb!xs! does not have at least two values, \verb![]! is returned.
+
+\begin{console}[frame=none]
+	Test                         Expected value
+	second []                    []
+        second [42]                  []
+	second [2;9]                 [2]
+	second [3;4;5]               [3]
+        second [1.1; 2.2; 3.3; 4.4]  [2.2]
+\end{console}
+
+\ANSWER
+\begin{answercode}
+  
+\end{answercode}
+
+%===============================================================================
+\newpage
+\nextq
+What is the value of the \verb!x! in the following binding:
+\begin{console}
+let x = (fun f -> (fun x -> f(f x))) (fun x -> x * x) 2;;
+\end{console}
+or write ERROR.
+
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+%===============================================================================
+\newpage
+\nextq
+Write down the type for each of the following expressions.
+Write ERROR if there's an error in the expression.
+\begin{tightlist}
+\li Recall that the type of a function look like
+\verb!'a -> 'b!.    
+For instance the type of \verb!fun x -> x + 1! is
+\verb!int -> int! and the type of
+\verb!fun x -> fun y -> x + y! is \verb!int -> int -> int!
+and the type of
+\verb!fun x -> fun y -> (x < y)! is \verb!'a -> 'a -> bool!.
+\li The type of a list looks like \verb!'a list!.
+For instance the type of \verb![1;2;3]! is
+\verb!int list!.
+\li The type of a 2-tuple looks like \verb!'a * 'b!.
+For instance the type of \verb!(1, 2.4)! is
+\verb!int * float!.
+The type for 3-tuple, 4-tuple, etc. are analgous.
+\li If you use type parameters, make sure you use \verb!'a!,
+\verb!'b!, \verb!'c!, etc. in that order.
+\end{tightlist}
+
+
+(a) \verb!if 1 = 2 then [3] else [4]!
+\\
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+(b) \verb!fun x -> fun y -> y::x::[1]!
+\\
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+(c) \verb!fun x -> fun y -> y::[x]!
+\\
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+(d) \verb!fun x -> fun y -> (y (x + 1) +. 3.0)!
+\\
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+(e) \verb!fun x -> fun y -> y x!
+\\
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+(f) \verb!fun x -> fun y -> x y!
+\\
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+%===============================================================================
+\newpage
+\nextq
+Write a number guessing game. Call \verb!(guess 42)!
+and the user is prompted to enter a guess. If the number
+entered is 42, the program will stop. If the number entered is
+$<$ 42, the program will ask the user to try a larger number. If
+the number entered is $>$ 42, the program will ask the user to
+try a smaller number.
+
+To get an integer value from the user do this:
+\begin{console}
+let x = read_int ();;
+\end{console}
+
+Here's a sample execute:
+{\small
+\begin{console}[commandchars=\\\{\}]
+utop # guess 42;;
+guess my int: \userinput{1}
+try higher ...
+guess my int: \userinput{100}
+try lower ...
+guess my int: \userinput{50}
+try lower ...
+guess my int: \userinput{25}
+try higher ...
+guess my int: \userinput{30}
+try higher ...
+guess my int: \userinput{40}
+try higher ...
+guess my int: \userinput{45}
+try lower ...
+guess my int: \userinput{43}
+try lower ...
+guess my int: \userinput{42}
+correct!!!
+- : unit = ()
+\end{console}
+}
+
+Turn page ...
+\newpage
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+%===============================================================================
+\newpage
+\nextq
+Write a function \verb!reverse_at! so that \verb!(reverse_at list n)!
+returns the element of the list at index \verb!n! in the reverse order,
+i.e., index 0 means the last value, index 1 means the second last value, etc.
+Ignore the case where \verb!n < 0! or \verb!n >=! the size of the list.
+
+\begin{Verbatim}
+	Test                       Expected values
+	reverse_at [5;3;1] 0       1
+	reverse_at [2;4;6] 1       4
+	reverse_at [1;3;5;7] 3     1
+\end{Verbatim}
+
+
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+%===============================================================================
+\newpage
+\nextq
+Write a function \verb!rev! that reverses a list.
+For instance after
+\verb!(rev [1; 3; 5])!
+is \verb![5; 3; 1]!.
+Any recursion used must be tail recursion.
+In other words,
+\verb!(rev list)!
+should call another function that returns the reverse of \verb!list!
+and this function computes the reverse of
+\verb!list! using tail recursion.
+
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+%===============================================================================
+\newpage
+\nextq
+Write a function \verb!seteq! that compares two lists are the same,
+treating them as sets.
+For instance
+\verb!seteq [1;3;5] [5;3;3;1;1;3]!
+is true.
+In other words
+\verb!seteq xs ys! is true exactly when the values in \verb!xs!
+are in \verb!ys! and the values in \verb!ys! are in \verb!xs!.
+You need not use tail recursion.
+\\
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+%===============================================================================
+\newpage
+\nextq
+Write a function \verb!powerset! that computes the powerset
+of a list.
+For instance after
+\begin{console}
+let xs = powerset [1;3;5];;
+\end{console}
+\verb!xs! is \verb![[]; [1]; [3]; [5]; [1;3]; [1;5]; [3;5]; [1;3;5]]!.
+The lists need not appear in the above order.
+The values in a list of the above list need not be in the above order --
+for instance \verb![1;3]! can be \verb![3;1]!.
+In other words, you can view each list as a set.
+
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+
+%===============================================================================
+\newpage
+\nextq
+You are given this binary tree:
+\begin{console}
+type 'a bintree = Empty
+                | Node of ('a * 'a bintree * 'a bintree)
+;;
+\end{console}
+(a) Write a function \verb!has_element! such that
+\verb!has_element t v! is true iff the value \verb!v! is in the
+tree \verb!t!.
+For instance
+\begin{console}
+utop # let t = Node (5, Node (6, Empty, Empty), Node (1, Empty, Empty));;
+val t : int bintree = Node (5, Node (6, Empty, Empty), Node (1, Empty, Empty))
+utop # has_element t 5;;
+- : bool = true
+utop # has_element t 7;;
+- : bool = false
+\end{console}
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+(b)
+Write a function \verb!subtree! such that 
+\verb!subtree t v! is the subtree of \verb!t! with \verb!v! as root.
+For instance
+\begin{console}
+utop # let t = Node (5, Node (6, Empty, Empty), Node (1, Empty, Empty));;
+val t : int bintree = Node (5, Node (6, Empty, Empty), Node (1, Empty, Empty))
+utop # subtree t 5;;
+- : int bintree = Node (5, Node (6, Empty, Empty), Node (1, Empty, Empty))
+utop # subtree t 6;;
+- : int bintree = Node (6, Empty, Empty)
+utop # subtree t 1;;
+- : int bintree = Node (1, Empty, Empty)
+utop # subtree t 0;;
+- : int bintree = Empty
+\end{console}
+(You can assume that the values in the tree are unique.)
+\\
+\ANSWER
+\begin{answercode}
+
+\end{answercode}
+
+
+%------------------------------------------------------------------------------
+%\newpage
+%\input{instructions.tex}
+\end{document}

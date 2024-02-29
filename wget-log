@@ -1,0 +1,6 @@
+--2024-02-24 07:08:46--  https://update.code.visualstudio.com/commit:019f4d1419fbc8219a181fab7892ebccf7ee29a2/server-linux-x64/stable
+Resolving update.code.visualstudio.com (update.code.visualstudio.com)... 13.107.213.38, 13.107.246.38, 2620:1ec:46::38, ...
+Connecting to update.code.visualstudio.com (update.code.visualstudio.com)|13.107.213.38|:443... connected.
+ERROR: cannot verify update.code.visualstudio.com's certificate, issued by ‘CN=Microsoft Azure RSA TLS Issuing CA 07,O=Microsoft Corporation,C=US’:
+  Issued certificate not yet valid.
+To connect to update.code.visualstudio.com insecurely, use `--no-check-certificate'.

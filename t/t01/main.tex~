@@ -1,0 +1,138 @@
+\input{myquizpreamble.tex}
+\input{ciss445}
+\input{yliow}
+\renewcommand\TITLE{Test 01}
+
+\begin{document}
+\topmatter
+
+There are two parts. Part 1 is close-book and in-class and Part 2 is open-book
+and take-home. Part 1 and Part 2 are both worth 50% of the midterm grade.
+No discussion is allowed for either case.
+
+Your solution must be written in the box provided. Anything outside the box
+is not considered part of the solution.
+Everything inside the box IS considered part of the solution.
+
+Do NOT provide multiple solutions. If you do, I get to pick ONE to grade.
+(I'm very good at picking solution -- the wrong one).
+
+Write neatly. If I cannot read your solution easily you will get zero.
+
+
+\newpage
+
+\textbf{Part 1.}
+
+Q1. [Phases of compilation] The following are the phases in source code compilation:
+
+\begin{center}
+\includegraphics[width=3in]{pic.JPG}
+\end{center}
+
+(a) What is the input for the scanner phase?
+\\ \SOLUTION
+\begin{console}
+
+
+  
+\end{console}
+
+(b) What is the output during the scanner phase?
+\\ \SOLUTION
+\begin{console}
+
+
+  
+\end{console}
+
+(c) What is the input for the parser phase?
+\\ \SOLUTION
+\begin{console}
+
+
+  
+\end{console}
+
+(d) What is the output during the parser phase?
+\\ \SOLUTION
+\begin{console}
+
+
+  
+\end{console}
+
+
+\newpage
+For the OCAML coding problems,
+your grade will be based on passing a lists of tests cases.
+If your code passes all the test cases,
+you get all the points for that question;
+if it does not pass any test cases you will get 0.
+Not all test cases are shown below. 
+
+\newpage
+Q2. [Basic function definition for higher order function]
+\\
+Write a function quadratic such that
+\verb!(quadratic a b c)! returns a function that computes the $y$-value
+of the straight quadratic equation $y = ax^2 + bx + c$.
+For instance 
+
+\begin{console}[frame=none]
+        Test                       Expected value
+        (quadratic 0 1 2) 5        0 * 5 * 5 + 1 * 5 + 2
+        (quadratic 1 2 3) 3        1 * 3 * 3 + 2 * 3 + 3
+        (quadratic 2 3 4) 7        2 * 7 * 7 + 3 * 7 + 4
+\end{console}
+
+\SOLUTION
+\begin{console}
+
+
+
+
+
+
+  
+\end{console}
+
+\newpage
+Q3. [Basic function definition and pattern matching]
+\\
+Write a \verb!head!
+function that returns the first value of a list.
+Ignore the case where the list is empty.
+
+\begin{console}[frame=none]
+	Test            Expected value
+	head [1]        1
+	head [2;9]      2
+	head [3;2;5]    3
+\end{console}
+
+SOLUTION
+\begin{console}
+
+
+
+
+
+
+
+  
+\end{console}
+
+
+\newpage
+Q4.
+[Recursion on lists and pattern matching]
+\\
+Write a function at so that (reverse_at list n) returns the element of the list at index n in the order, i.e., index 0 means the last value, index 1 means the second last value, etc.. Ignore the case where n<0 or n>= the size of the list.
+
+	Test		Expected values
+	reverse_at [5;3;1]  0	1
+	reverse_at [2;4;6]  1	4
+	reverse_at [1;3;5;7]  3	1
+
+\end{document}
