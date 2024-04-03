@@ -1,0 +1,18 @@
+{ #use "mytype.ml";; }
+
+let digit = ['0'-'9']
+let digits = digit+
+
+rule mylexer1 = parse
+  digits as s {
+                let _ = Printf.printf "found %s. " s in
+                (Int s)::(mylexer1 lexbuf)
+              }
+| eof         {
+                let _ = Printf.printf "eof\n" in
+                []
+              }
+| _           {
+                mylexer1 lexbuf
+              }
+{}

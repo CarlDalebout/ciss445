@@ -1,6 +1,6 @@
 \input{thispreamble.tex}
 
-\renewcommand\AUTHOR{} % CHANGE TO YOURS
+\renewcommand\AUTHOR{Carl Dalebout} % CHANGE TO YOURS
 
 \begin{document}
 \topmattertwo
@@ -96,6 +96,10 @@ For instance
 \ANSWER
 \begin{answercode}
   
+	let quadratic = fun a -> fun b -> fun c -> fun x ->
+		a * x * x + b * x + c
+	;;
+
 \end{answercode}
 
 %===============================================================================
@@ -109,15 +113,22 @@ If \verb!xs! does not have at least two values, \verb![]! is returned.
 \begin{console}[frame=none]
 	Test                         Expected value
 	second []                    []
-        second [42]                  []
-	second [2;9]                 [2]
-	second [3;4;5]               [3]
-        second [1.1; 2.2; 3.3; 4.4]  [2.2]
+    second [42]                  []
+	second [2;9]                 [9]
+	second [3;4;5]               [4]
+    second [1.1; 2.2; 3.3; 4.4]  [2.2]
 \end{console}
 
 \ANSWER
 \begin{answercode}
-  
+  let second = fun x -> 
+  match x with 
+  | [] -> []
+  | x::xs -> 
+	match xs with 
+	| [] -> []
+	| y::ys -> y
+  ;;
 \end{answercode}
 
 %===============================================================================
@@ -131,7 +142,7 @@ or write ERROR.
 
 \ANSWER
 \begin{answercode}
-
+ (int -> int) -> int -> (int -> ((int -> int ) -> int)) -> int 
 \end{answercode}
 
 %===============================================================================
@@ -163,42 +174,42 @@ The type for 3-tuple, 4-tuple, etc. are analgous.
 \\
 \ANSWER
 \begin{answercode}
-
+int -> int -> bool -> int
 \end{answercode}
 
 (b) \verb!fun x -> fun y -> y::x::[1]!
 \\
 \ANSWER
 \begin{answercode}
-
+int -> int -> int list
 \end{answercode}
 
 (c) \verb!fun x -> fun y -> y::[x]!
 \\
 \ANSWER
 \begin{answercode}
-
+'a -> 'a -> list 'a
 \end{answercode}
 
 (d) \verb!fun x -> fun y -> (y (x + 1) +. 3.0)!
 \\
 \ANSWER
 \begin{answercode}
-
+Error addition between and int and a float
 \end{answercode}
 
 (e) \verb!fun x -> fun y -> y x!
 \\
 \ANSWER
 \begin{answercode}
-
+Error Two Outputs
 \end{answercode}
 
 (f) \verb!fun x -> fun y -> x y!
 \\
 \ANSWER
 \begin{answercode}
-
+	Error Two Outputs
 \end{answercode}
 
 %===============================================================================
@@ -246,7 +257,15 @@ Turn page ...
 \newpage
 \ANSWER
 \begin{answercode}
-
+let guess = fun value ->
+	let x = read_int() in
+	if x = value then
+		correct!!!
+	else if x > value then
+		"try lower ..."
+	else 
+		"try higher ..."
+;;	
 \end{answercode}
 
 %===============================================================================
@@ -267,7 +286,8 @@ Ignore the case where \verb!n < 0! or \verb!n >=! the size of the list.
 
 \ANSWER
 \begin{answercode}
-
+	let reverse_at = fun list -> fun n ->
+		//need to come back to this 
 \end{answercode}
 
 %===============================================================================
@@ -286,7 +306,11 @@ and this function computes the reverse of
 
 \ANSWER
 \begin{answercode}
-
+	let rec rev = fun list -> fun accum
+	match list with
+	| [] -> accum
+	| x::xs -> rev xs x@accum
+	;;
 \end{answercode}
 
 %===============================================================================
@@ -304,7 +328,23 @@ You need not use tail recursion.
 \\
 \ANSWER
 \begin{answercode}
-
+	let rec seteq = fun list1 -> fun list2 ->
+		match list1 with
+		| [] -> true
+		| x::xs -> 
+			let rec loop = fun value -> list ->
+				match list with 
+				| [] -> false
+				| y::ys -> if y = value then
+							true
+						   else
+						   	loop value ys
+							in
+			if (loop x list2) then
+				seteq xs list2
+			else
+				false
+	;;
 \end{answercode}
 
 %===============================================================================
@@ -324,6 +364,16 @@ In other words, you can view each list as a set.
 
 \ANSWER
 \begin{answercode}
+% powerset [1] = [[1]; []]
+% powerset [1; 2] = [[1]; [2]; [1; 2]; []]
+% powerset [1; 2; 3] = [[1]; [2]; [3]; [1; 2]; [1; 3]; [2; 3]; [1; 2; 3]; []]
+
+let rec powerset = fun list ->
+match list with 
+| [] -> [[]]
+| x -> x::[]
+| x::xs -> x::(powerset xs)::list::[]
+
 
 \end{answercode}
 
@@ -351,7 +401,20 @@ utop # has_element t 7;;
 \end{console}
 \ANSWER
 \begin{answercode}
-
+let rec has_element = fun t -> fun v ->
+	match t with 
+	| Empty -> false
+	| (x * Left * Right) -> if x = v then 
+								true
+					 		else
+								if(has_element Left v) then
+									true
+								else if (has_element Right v) then
+									true
+								else
+									false
+;;
+									
 \end{answercode}
 
 (b)
@@ -374,6 +437,17 @@ utop # subtree t 0;;
 \\
 \ANSWER
 \begin{answercode}
+let rec subtree = fun t -> fun v ->
+	match t with
+	| Empty -> Empty
+	| (x * Left * Right) -> if x = v then 
+								t
+							else if (subtree Left v = Empty) then
+								if(subtree Right v = Empty) then
+									Empty
+								else 
+								 	Empty
+;;
 
 \end{answercode}
 

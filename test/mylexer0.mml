@@ -1,0 +1,19 @@
+{} (*header*)
+
+let digit = ['0'-'9']
+let digits = digit+
+
+rule mylexer0 = parse
+  digits as s   {
+                  let _ = Printf.printf "found %s. " s in 
+                  mylexer0 lexbuf
+                }
+| eof           {
+                 let _ = Printf.printf "\n" in
+                  ()
+                }
+| _             {
+                  mylexer0 lexbuf
+                }
+
+{} (* trailer *)
