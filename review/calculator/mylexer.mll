@@ -12,6 +12,7 @@ rule mylexer = parse
   | '/'             { DIV }
   | '('             { LPAREN }
   | ')'             { RPAREN }
+  | '^'             { EXPON }
   | eof             { raise Eof }
 {
 }
