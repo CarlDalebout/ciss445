@@ -1,10 +1,23 @@
 # Name: Carl
 # File: main.py
 
-def NFA(alphabet, states, start, accepts, transitions, userString):
+def DFA(alphabet, states, start, accepts, transitions, userString):
+  currentState = transitions[0][0]
+  count = 1
+  for tran in transitions:
+    if tran[0] != currentState:
+      if count < len(alphabet)-1:
+        print(tran, count, currentState, "this is not a valid DFA")
+        return False
+      else:
+        currentState = tran
+        count = 1
+    elif tran[0] == currentState:
+      count += 1
+
   currentState = start
   for char in userString:
-    if char not in alphabet and char != " ":
+    if char not in alphabet:
       return False
     for tran in transitions:
       if currentState == tran[0]:
@@ -20,7 +33,7 @@ def NFA(alphabet, states, start, accepts, transitions, userString):
   
 text = input("please give me a string containing 1's and 0's: ")
 
-N = NFA(alphabet=["0", "1"],
+N = DFA(alphabet=["0", "1"],
  states=["q0", "q1", "q2", "q3"],
  start="q0",
  accepts=["q0", "q2", "q3"],
